@@ -1,0 +1,6 @@
+App\Dto\Input\ChatRoomsCriteriaDelete:
+  attributes:
+    filters:
+      groups: ['delete_chat_rooms:input']
+    preview:
+      groups: ['delete_chat_rooms:input']

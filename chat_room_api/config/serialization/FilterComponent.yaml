@@ -1,0 +1,8 @@
+App\Dto\Input\FilterComponent:
+  attributes:
+    included:
+      groups: ['delete_chat_rooms:input']
+    value:
+      groups: [ 'delete_chat_rooms:input' ]
+    attribute:
+      groups: [ 'delete_chat_rooms:input' ]

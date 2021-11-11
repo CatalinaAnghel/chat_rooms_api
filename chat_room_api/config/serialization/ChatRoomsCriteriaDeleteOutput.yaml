@@ -1,0 +1,6 @@
+App\Dto\Output\ChatRoomsCriteriaDelete:
+  attributes:
+    sample:
+      groups: ['delete_chat_rooms:output']
+    isPreview:
+      groups: ['delete_chat_rooms:output']

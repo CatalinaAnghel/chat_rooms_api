@@ -1,0 +1,49 @@
+resources:
+  App\Entity\User:
+    shortName: 'Users'
+    collectionOperations:
+      post:
+        path: '/register'
+        openapi_context:
+          summary: 'Create an account'
+          description: 'Create an account'
+    itemOperations:
+      get: ~
+    attributes:
+      denormalization_context:
+        groups: ['user:input']
+      normalization_context:
+        groups: ['user:output']
+
+  App\Entity\ChatRooms:
+    collectionOperations:
+      post: ~
+      get:
+        filters: ['chatRooms.search_filter']
+    itemOperations:
+      get: ~
+      delete: ~
+      put: ~
+    attributes:
+      denormalization_context:
+        groups: [ 'chat_room:input' ]
+      normalization_context:
+        groups: [ 'chat_room:output' ]
+
+  App\Entity\CriteriaDeleteChatRooms:
+    collectionOperations:
+      post: ~
+      get:
+        openapi_context:
+          summary: "hidden"
+    itemOperations: []
+#      get:
+    attributes:
+      id:
+        identifier: true
+      input: App\Dto\Input\ChatRoomsCriteriaDelete
+      output: App\Dto\Output\ChatRoomsCriteriaDelete
+      denormalization_context:
+        groups: [ 'delete_chat_rooms:input' ]
+      normalization_context:
+        groups: [ 'delete_chat_rooms:output' ]
