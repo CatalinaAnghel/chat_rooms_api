@@ -32,12 +32,15 @@ resources:
 
   App\Entity\CriteriaDeleteChatRooms:
     collectionOperations:
-      post: ~
+      post:
+        openapi_context:
+          summary: Delete resources based on several criterias
+          description: Delete resources based on several criterias
+        status: 200
       get:
         openapi_context:
           summary: "hidden"
     itemOperations: []
-#      get:
     attributes:
       id:
         identifier: true
@@ -47,3 +50,18 @@ resources:
         groups: [ 'delete_chat_rooms:input' ]
       normalization_context:
         groups: [ 'delete_chat_rooms:output' ]
+
+  App\Entity\Messages:
+    collectionOperations:
+      post: ~
+      get:
+        filters: [ 'messages.search_filter', 'messages.range_filter' ]
+    itemOperations:
+      get: ~
+      delete: ~
+      put: ~
+    attributes:
+      denormalization_context:
+        groups: [ 'message:input' ]
+      normalization_context:
+        groups: [ 'message:output' ]

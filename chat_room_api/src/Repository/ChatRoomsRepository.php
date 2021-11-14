@@ -20,7 +20,7 @@ class ChatRoomsRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return ChatRooms[] Returns an array of ChatRooms objects
+    //  * @return CreateChatRooms[] Returns an array of CreateChatRooms objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ChatRoomsRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?ChatRooms
+    public function findOneBySomeField($value): ?CreateChatRooms
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')
