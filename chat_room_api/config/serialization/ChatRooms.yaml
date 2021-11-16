@@ -1,5 +1,0 @@
-App\Entity\ChatRooms:
-  attributes:
-    name:
-      groups:
-        ['chat_room:input', 'chat_room:output', 'delete_chat_rooms:output']

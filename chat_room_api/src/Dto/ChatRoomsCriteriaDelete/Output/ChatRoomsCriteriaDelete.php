@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Dto\Output;
+namespace App\Dto\ChatRoomsCriteriaDelete\Output;
 
-use App\Dto\Input\FilterComponent;
-use App\Entity\ChatRooms;
+use App\Dto\ChatRooms\Output\ChatRoomsOutputDto;
 
 final class ChatRoomsCriteriaDelete
 {
@@ -13,9 +12,10 @@ final class ChatRoomsCriteriaDelete
     private $isPreview;
 
     /**
-     * @var ChatRooms[]|null
+     * @var ChatRoomsOutputDto[]
      */
     private $sample;
+
 
     /**
      * @return bool
@@ -34,7 +34,7 @@ final class ChatRoomsCriteriaDelete
     }
 
     /**
-     * @return ChatRooms[]|null
+     * @return ChatRoomsOutputDto[]
      */
     public function getSample(): ?array
     {
@@ -42,7 +42,7 @@ final class ChatRoomsCriteriaDelete
     }
 
     /**
-     * @param ChatRooms[]|null $sample
+     * @param ChatRoomsOutputDto[] $sample
      */
     public function setSample(?array $sample): void
     {

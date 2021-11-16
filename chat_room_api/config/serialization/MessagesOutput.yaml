@@ -1,0 +1,6 @@
+App\Dto\Messages\Output\MessagesOutputDto:
+  attributes:
+    content:
+      groups: [ 'message:output', 'chat_room:output', 'delete_chat_rooms:output' ]
+    chatRoom:
+      groups: [ 'message:output' ]

@@ -1,4 +1,4 @@
-App\Dto\Input\FilterComponent:
+App\Dto\Utils\FilterComponent:
   attributes:
     included:
       groups: ['delete_chat_rooms:input']

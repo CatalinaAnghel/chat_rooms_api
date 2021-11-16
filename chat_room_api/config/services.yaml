@@ -41,6 +41,8 @@ services:
 #            $decoratedDataPersister: '@api_platform.doctrine.orm.data_persister'
 
     # data transformers:
+    'App\DataTransformer\Input\ChatRoomsInputDataTransformer': ~
+    'App\DataTransformer\Output\ChatRoomsOutputDataTransformer': ~
     'App\DataTransformer\Input\DeleteChatRoomsDataTransformer': ~
 
     # filters:

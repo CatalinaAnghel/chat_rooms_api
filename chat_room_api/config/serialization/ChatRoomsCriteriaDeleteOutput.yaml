@@ -1,4 +1,4 @@
-App\Dto\Output\ChatRoomsCriteriaDelete:
+App\Dto\ChatRoomsCriteriaDelete\Output\ChatRoomsCriteriaDelete:
   attributes:
     sample:
       groups: ['delete_chat_rooms:output']

@@ -1,15 +1,22 @@
 <?php
 
-namespace App\Dto\Input;
+namespace App\Dto\Utils;
 
-class FilterComponent
+use App\Validator\Constraints\ValidAttribute;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
+final class FilterComponent
 {
     /**
      * @var string $attribute
+     * @Assert\NotBlank()
+     * @ValidAttribute()
      */
     private $attribute;
 
     /**
+     * @Assert\NotBlank()
      * @var string $value
      */
     private $value;

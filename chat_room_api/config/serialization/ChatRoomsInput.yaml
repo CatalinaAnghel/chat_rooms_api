@@ -1,0 +1,4 @@
+App\Dto\ChatRooms\Input\ChatRoomsInputDto:
+  attributes:
+    name:
+      groups: ['chat_room:input']

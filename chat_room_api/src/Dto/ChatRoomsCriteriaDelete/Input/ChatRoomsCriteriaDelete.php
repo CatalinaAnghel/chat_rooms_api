@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Dto\Input;
+namespace App\Dto\ChatRoomsCriteriaDelete\Input;
+use App\Dto\Utils\FilterComponent;
 
 final class ChatRoomsCriteriaDelete
 {

@@ -4,7 +4,8 @@ namespace App\DataPersister;
 
 use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use ApiPlatform\Core\DataPersister\DataPersisterInterface;
-use App\Dto\Output\ChatRoomsCriteriaDelete;
+use App\Dto\ChatRooms\Output\ChatRoomsOutputDto;
+use App\Dto\ChatRoomsCriteriaDelete\Output\ChatRoomsCriteriaDelete;
 use App\Entity\CriteriaDeleteChatRooms;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -97,8 +98,12 @@ class DeleteChatRoomsDataPersister implements DataPersisterInterface, ContextAwa
         $results = $qb->getQuery()->getArrayResult();
         $filteredResources = array();
         foreach ($results as $result) {
-            $object = $this->entityManager->getRepository('App\Entity\ChatRooms')->findOneBy(['id' => $result['id']]);
-            $filteredResources[] = $object;
+            $object = $this->entityManager->getRepository('App\Entity\ChatRooms')
+                ->findOneBy(['id' => $result['id']]);
+            $chatRoomOutputDto = new ChatRoomsOutputDto();
+            $chatRoomOutputDto->setId($object->getId());
+            $chatRoomOutputDto->setName($object->getName());
+            $filteredResources[] = $chatRoomOutputDto;
             if (!$data->isPreview())
                 $this->entityManager->remove($object);
         }

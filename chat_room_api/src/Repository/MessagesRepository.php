@@ -20,7 +20,7 @@ class MessagesRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Messages[] Returns an array of Messages objects
+    //  * @return MessagesInputDto[] Returns an array of MessagesInputDto objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class MessagesRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Messages
+    public function findOneBySomeField($value): ?MessagesInputDto
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.exampleField = :val')

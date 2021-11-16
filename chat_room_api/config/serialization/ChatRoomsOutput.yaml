@@ -1,0 +1,6 @@
+App\Dto\ChatRooms\Output\ChatRoomsOutputDto:
+  attributes:
+    name:
+      groups: [ 'chat_room:output', 'delete_chat_rooms:output']
+    id:
+      groups: ['chat_room:output', 'delete_chat_rooms:output']

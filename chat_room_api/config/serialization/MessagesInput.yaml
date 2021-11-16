@@ -1,0 +1,6 @@
+App\Dto\Messages\Input\MessageInputDto:
+  attributes:
+    content:
+      groups: [ 'message:input' ]
+    chatRoom:
+      groups: [ 'message:input' ]
