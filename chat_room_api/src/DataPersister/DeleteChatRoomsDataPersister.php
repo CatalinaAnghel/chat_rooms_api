@@ -7,6 +7,7 @@ use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use App\Dto\ChatRooms\Output\ChatRoomsOutputDto;
 use App\Dto\ChatRoomsCriteriaDelete\Output\ChatRoomsCriteriaDelete;
 use App\Entity\CriteriaDeleteChatRooms;
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DeleteChatRoomsDataPersister implements DataPersisterInterface, ContextAwareDataPersisterInterface
@@ -101,6 +102,9 @@ class DeleteChatRoomsDataPersister implements DataPersisterInterface, ContextAwa
         }
         $results = $qb->getQuery()->getArrayResult();
         $filteredResources = array();
+        if (!$data->isPreview()) {
+            $this->entityManager->beginTransaction();
+        }
         foreach ($results as $result) {
             $object = $this->entityManager->getRepository('App\Entity\ChatRooms')
                 ->findOneBy(['id' => $result['id']]);
@@ -108,14 +112,21 @@ class DeleteChatRoomsDataPersister implements DataPersisterInterface, ContextAwa
             $chatRoomOutputDto->setId($object->getId());
             $chatRoomOutputDto->setName($object->getName());
             $filteredResources[] = $chatRoomOutputDto;
-            if (!$data->isPreview())
+            if (!$data->isPreview()){
                 $this->entityManager->remove($object);
+            }
+
         }
-        if (!$data->isPreview()){
-            $this->entityManager->flush();
-            $filteredResources = [];
+        try{
+            if (!$data->isPreview()){
+                $this->entityManager->flush();
+                $filteredResources = [];
+                $this->entityManager->getConnection()->commit();
+            }
+        }catch (Exception $e){
+            $this->entityManager->getConnection()->rollBack();
         }
-//        dd($filteredResources);
+
         return $filteredResources;
     }
 }
