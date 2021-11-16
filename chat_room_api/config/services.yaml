@@ -36,9 +36,6 @@ services:
     App\DataPersister\UserDataPersister:
         bind:
             $decoratedDataPersister: '@api_platform.doctrine.orm.data_persister'
-#    App\DataPersister\DeleteChatRoomsDataPersister:
-#        bind:
-#            $decoratedDataPersister: '@api_platform.doctrine.orm.data_persister'
 
     # data transformers:
     'App\DataTransformer\Input\ChatRoomsInputDataTransformer': ~
@@ -76,20 +73,20 @@ services:
         autoconfigure: false
         public: false
 
-    chatRooms.delete_filter:
-        parent: 'api_platform.doctrine.orm.search_filter'
-        arguments: [ { id: 'exact', name: 'partial' } ]
-        tags: [ 'api_platform.filter' ]
-        # The following are mandatory only if a _defaults section is defined with inverted values.
-        # You may want to isolate filters in a dedicated file to avoid adding the following lines (by adding them in the defaults section)
-        autowire: false
-        autoconfigure: false
-        public: false
-
-    chatRooms.boolean_delete_filter:
-        parent: 'api_platform.doctrine.orm.boolean_filter'
-        arguments: [ { archived: ~ } ]
-        tags:  [ 'api_platform.filter' ]
-        autowire: false
-        autoconfigure: false
-        public: false
+#    chatRooms.delete_filter:
+#        parent: 'api_platform.doctrine.orm.search_filter'
+#        arguments: [ { id: 'exact', name: 'partial' } ]
+#        tags: [ 'api_platform.filter' ]
+#        # The following are mandatory only if a _defaults section is defined with inverted values.
+#        # You may want to isolate filters in a dedicated file to avoid adding the following lines (by adding them in the defaults section)
+#        autowire: false
+#        autoconfigure: false
+#        public: false
+#
+#    chatRooms.boolean_delete_filter:
+#        parent: 'api_platform.doctrine.orm.boolean_filter'
+#        arguments: [ { archived: ~ } ]
+#        tags:  [ 'api_platform.filter' ]
+#        autowire: false
+#        autoconfigure: false
+#        public: false

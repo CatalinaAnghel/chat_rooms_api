@@ -3,6 +3,8 @@
 namespace App\DataTransformer\Input;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
+use App\Dto\ChatRooms\Input\ChatRoomsInputDto;
+use App\Dto\ChatRoomsCriteriaDelete\Input\ChatRoomsCriteriaDelete;
 use App\Entity\ChatRooms;
 
 final class ChatRoomsInputDataTransformer implements DataTransformerInterface
@@ -29,7 +31,6 @@ final class ChatRoomsInputDataTransformer implements DataTransformerInterface
         if ($data instanceof ChatRooms) {
             return false;
         }
-
         return ChatRooms::class === $to && null !== ($context['input']['class'] ?? null);
     }
 }

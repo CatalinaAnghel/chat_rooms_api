@@ -3,15 +3,19 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
-use App\Dto\Input\FilterComponent;
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Dto\Utils\FilterComponent;
 
+/**
+ * @ApiResource
+ */
 class CriteriaDeleteChatRooms
 {
     /**
      * @var string
      * @ApiProperty(identifier=true)
      */
-    private $time;
+    private $id;
     /**
      * @var FilterComponent[]|null $filters
      */
@@ -29,7 +33,7 @@ class CriteriaDeleteChatRooms
 
     public function __construct()
     {
-        $this->time = (new \DateTime('NOW'))->format('Y-m-d');
+        $this->id = (new \DateTime('NOW'))->format('Y-m-d');
     }
 
     /**
@@ -67,16 +71,15 @@ class CriteriaDeleteChatRooms
     /**
      * @return string
      */
-    public function getTime(): string
+    public function getId(): string
     {
-        return $this->time;
+        return $this->id;
     }
 
     /**
-     * @param \DateTime $time
      */
-    public function setTime(\DateTime $time): void
+    public function setId(): void
     {
-        $this->time = $time->format('Y-m-d');
+        $this->id = (new \DateTime('NOW'))->format('Y-m-d');
     }
 }

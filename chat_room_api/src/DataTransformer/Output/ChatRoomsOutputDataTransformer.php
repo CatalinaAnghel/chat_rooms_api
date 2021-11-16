@@ -30,7 +30,6 @@ class ChatRoomsOutputDataTransformer implements DataTransformerInterface
         if ($data instanceof ChatRoomsOutputDto) {
             return false;
         }
-
         return ChatRoomsOutputDto::class === $to && null !== ($context['input']['class'] ?? null);
     }
 }

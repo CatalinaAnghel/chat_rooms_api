@@ -41,7 +41,7 @@ class DeleteChatRoomsDataPersister implements DataPersisterInterface, ContextAwa
             $criteria->setIsPreview($data->isPreview());
             $criteria->setSample($results);
         }
-        return (!empty($criteria) && $criteria->isPreview())? $criteria : [];
+        return !empty($criteria)? $criteria : [];
     }
 
     /**
@@ -95,6 +95,10 @@ class DeleteChatRoomsDataPersister implements DataPersisterInterface, ContextAwa
             }
             $qb->setParameter('value', $filter->getValue());
         }
+
+        if($data->isPreview()){
+            $qb->setMaxResults(100);
+        }
         $results = $qb->getQuery()->getArrayResult();
         $filteredResources = array();
         foreach ($results as $result) {
@@ -107,9 +111,11 @@ class DeleteChatRoomsDataPersister implements DataPersisterInterface, ContextAwa
             if (!$data->isPreview())
                 $this->entityManager->remove($object);
         }
-        if (!$data->isPreview())
+        if (!$data->isPreview()){
             $this->entityManager->flush();
-
+            $filteredResources = [];
+        }
+//        dd($filteredResources);
         return $filteredResources;
     }
 }
