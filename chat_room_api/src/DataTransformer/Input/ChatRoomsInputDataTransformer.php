@@ -3,18 +3,39 @@
 namespace App\DataTransformer\Input;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
-use App\Dto\ChatRooms\Input\ChatRoomsInputDto;
-use App\Dto\ChatRoomsCriteriaDelete\Input\ChatRoomsCriteriaDelete;
+use ApiPlatform\Core\Validator\ValidatorInterface;
 use App\Entity\ChatRooms;
+use Doctrine\ORM\EntityManagerInterface;
 
 final class ChatRoomsInputDataTransformer implements DataTransformerInterface
 {
+    /**
+     * @var ValidatorInterface $validator
+     */
+    private $validator;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(ValidatorInterface $validator, EntityManagerInterface $entityManager)
+    {
+        $this->validator = $validator;
+        $this->entityManager = $entityManager;
+    }
     /**
      * {@inheritdoc}
      */
     public function transform($data, string $to, array $context = [])
     {
-        $chatRoom = new ChatRooms();
+        $this->validator->validate($data);
+        if(isset($context['item_operation_name']) && $context['item_operation_name'] == 'put'){
+            $repo = $this->entityManager->getRepository('App\Entity\ChatRooms');
+            $chatRoom = $repo->findOneBy(['id' => $context['object_to_populate']->getId()]);
+        }else{
+            $chatRoom = new ChatRooms();
+        }
 
         $chatRoom->setName($data->getName());
 

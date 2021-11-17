@@ -51,55 +51,27 @@ class DeleteChatRoomsDataPersister implements DataPersisterInterface, ContextAwa
     public function remove($data, array $context = [])
     {
         $qb = $this->entityManager->createQueryBuilder();
+
         $qb->addSelect(self::CHAT_ROOMS_ALIAS . '.id');
         $qb->from('App\Entity\ChatRooms', self::CHAT_ROOMS_ALIAS);
         foreach ($data->getFilters() as $filter) {
-            if ($filter->isIncluded()) {
-                if (preg_match('#[^\\\%](%|.)#', $filter->getAttribute())) {
-                    // matching using regex (partial matching)
-                    $qb->andWhere(
-                        $qb->expr()->like(
-                            self::CHAT_ROOMS_ALIAS . '.' . $filter->getAttribute(),
-                            ':value'
-                        )
-                    );
-                } else {
-                    // exact matching
-                    $qb->andWhere(
-                        $qb->expr()->eq(
-                            self::CHAT_ROOMS_ALIAS . '.' . $filter->getAttribute(),
-                            ':value'
-                        )
-                    );
-                }
-
-            } else {
-                if (preg_match('#[^\\\%](%|.)#', $filter->getAttribute())) {
-                    // matching using regex (partial matching)
-                    $qb->andWhere(
-                        $qb->expr()->not(
-                            $qb->expr()->like(
-                                self::CHAT_ROOMS_ALIAS . '.' . $filter->getAttribute(),
-                                ':value'
-                            )
-                        )
-                    );
-                } else {
-                    // exact matching
-                    $qb->andWhere(
-                        $qb->expr()->neq(
-                            self::CHAT_ROOMS_ALIAS . '.' . $filter->getAttribute(),
-                            ':value'
-                        )
-                    );
-                }
+            // matching using regex (partial matching)
+            if($filter->isIncluded()){
+                $qb->andWhere(
+                    "REGEXP(".self::CHAT_ROOMS_ALIAS . "." . $filter->getAttribute().", '". $filter->getValue() ."') = true"
+                );
+            }else{
+                $qb->andWhere(
+                    "REGEXP(".self::CHAT_ROOMS_ALIAS . "." . $filter->getAttribute().", '". $filter->getValue() ."') = false"
+                );
             }
-            $qb->setParameter('value', $filter->getValue());
+
         }
 
         if($data->isPreview()){
             $qb->setMaxResults(100);
         }
+        $qb->distinct();
         $results = $qb->getQuery()->getArrayResult();
         $filteredResources = array();
         if (!$data->isPreview()) {
