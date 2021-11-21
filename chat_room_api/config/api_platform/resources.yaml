@@ -65,7 +65,6 @@ resources:
           summary: 'Delete resources based on several criteria'
           description: 'Delete resources based on several criteria'
         status: 200
-        input: App\Dto\ChatRoomsCriteriaDelete\Input\ChatRoomsCriteriaDelete
         output: App\Dto\ChatRoomsCriteriaDelete\Output\ChatRoomsCriteriaDelete
       get:
         openapi_context:
@@ -78,3 +77,4 @@ resources:
         groups: [ 'delete_chat_rooms:input' ]
       normalization_context:
         groups: [ 'delete_chat_rooms:output' ]
+    input: App\Dto\ChatRoomsCriteriaDelete\Input\ChatRoomsCriteriaDelete
